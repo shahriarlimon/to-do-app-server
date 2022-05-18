@@ -27,6 +27,16 @@ client.connect(err => {
             const list = req.body;
             const result = await toDoLists.insertOne(list);
             res.send(result);
+        });
+        app.get('/lists', async(req,res)=>{
+            const result = await toDoLists.find().toArray();
+            res.send(result);
+        });
+        app.delete(`/list/:title`, async(req,res)=>{
+           const title = req.params.title;
+           const filter = {title};
+           const result = await toDoLists.deleteOne(filter);
+           res.send(result);
         })
       }finally{
 
